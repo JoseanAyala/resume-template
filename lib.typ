@@ -1,5 +1,4 @@
 // Public entry point for the resume template.
-// Imported by resume.typ via `#import "lib.typ": *`.
 
 #import "lib/tokens.typ": *
 #import "lib/icons.typ": *
