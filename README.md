@@ -45,7 +45,6 @@ lib/
   tokens.typ         # design tokens: spacing scale, type sizes, layout, fonts
   icons.typ          # Font Awesome glyphs as named refs (icons.phone, icons.github)
   components.typ     # header, entry, bullets, skills
-fonts/               # font path passed to typst via --font-path (empty in repo; CI fetches FA)
 ```
 
 ## CI

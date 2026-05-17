@@ -24,15 +24,15 @@ jobs:
         id: fa-cache
         uses: actions/cache@v4
         with:
-          path: fonts
+          path: ~/.local/share/fonts
           key: fontawesome-${{ env.FA_VERSION }}
 
       - name: Install Font Awesome
         if: steps.fa-cache.outputs.cache-hit != 'true'
         run: |
           curl -sSfL -o /tmp/fa.zip "https://github.com/FortAwesome/Font-Awesome/releases/download/${FA_VERSION}/fontawesome-free-${FA_VERSION}-desktop.zip"
-          mkdir -p fonts
-          unzip -j /tmp/fa.zip "fontawesome-free-${FA_VERSION}-desktop/otfs/*.otf" -d fonts/
+          mkdir -p ~/.local/share/fonts
+          unzip -j /tmp/fa.zip "fontawesome-free-${FA_VERSION}-desktop/otfs/*.otf" -d ~/.local/share/fonts/
 
       - name: Build resume
         run: make build
