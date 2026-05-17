@@ -61,10 +61,6 @@ Every push to `main` triggers [`.github/workflows/release.yml`](.github/workflow
 
 Grab the latest from the [releases page](https://github.com/JoseanAyala/resume-template/releases/latest).
 
-## Editing in Neovim
-
-LSP via [tinymist](https://github.com/Myriad-Dreamin/tinymist), formatting via [typstyle](https://github.com/Enter-tainer/typstyle), browser preview via [typst-preview.nvim](https://github.com/chomosuke/typst-preview.nvim). Open a `.typ` file, then `<leader>tp` to launch the preview.
-
 ## License
 
 MIT — see [LICENSE](LICENSE). Fork it, change the content, ship it.
