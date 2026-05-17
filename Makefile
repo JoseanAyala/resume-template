@@ -12,8 +12,7 @@ FONT_DIR := fonts
 REF_TAG  ?=
 
 .PHONY: all build watch clean install fmt fmt-check check open help \
-        test test-content test-visual ref \
-        font font-rm
+        test test-content test-visual ref
 
 all: build
 
@@ -68,41 +67,6 @@ test: test-content test-visual
 $(OUT_DIR):
 	mkdir -p $(OUT_DIR)
 
-$(FONT_DIR):
-	mkdir -p $(FONT_DIR)
-
-# Fetch static TTFs for a Google Font into $(FONT_DIR) via the fontsource CDN.
-# Usage: make font FAMILY="Manrope"     (also handles multi-word like "IBM Plex Sans")
-font: $(FONT_DIR)
-	@if [ -z "$(FAMILY)" ]; then \
-		echo "Usage: make font FAMILY=\"<Family Name>\""; exit 1; \
-	fi
-	@slug="$$(echo '$(FAMILY)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')"; \
-	echo "Fetching $(FAMILY) ($$slug) into $(FONT_DIR)/..."; \
-	got=0; \
-	for w in 100 200 300 400 500 600 700 800 900; do \
-		for s in normal italic; do \
-			f="$(FONT_DIR)/$$slug-$$w-$$s.ttf"; \
-			if curl -sSfL -o "$$f" "https://cdn.jsdelivr.net/fontsource/fonts/$$slug@latest/latin-$$w-$$s.ttf" 2>/dev/null; then \
-				echo "  ✓ $$w $$s"; got=$$((got+1)); \
-			else \
-				rm -f "$$f"; \
-			fi; \
-		done; \
-	done; \
-	if [ $$got -eq 0 ]; then \
-		echo "✗ no files fetched — is '$(FAMILY)' on fontsource? https://api.fontsource.org/v1/fonts/$$slug"; exit 1; \
-	fi
-
-# Remove a previously fetched family.
-# Usage: make font-rm FAMILY="Manrope"
-font-rm:
-	@if [ -z "$(FAMILY)" ]; then \
-		echo "Usage: make font-rm FAMILY=\"<Family Name>\""; exit 1; \
-	fi
-	@slug="$$(echo '$(FAMILY)' | tr '[:upper:]' '[:lower:]' | tr ' ' '-')"; \
-	rm -f $(FONT_DIR)/$$slug-*.ttf && echo "✓ removed $(FAMILY) from $(FONT_DIR)/"
-
 help:
 	@echo "Build:"
 	@echo "  build         Compile resume to $(OUT_PDF) (default)"
@@ -117,9 +81,6 @@ help:
 	@echo "  test-content  Strict text equality (gates green/red)"
 	@echo "  test-visual   Pixel diff; writes $(DIFF_PDF) on mismatch"
 	@echo "  ref           Fetch reference PDF from release (auto-run by test*)"
-	@echo "Fonts (Google Fonts via fontsource CDN → $(FONT_DIR)/):"
-	@echo "  font FAMILY=X    Fetch static TTFs for family X"
-	@echo "  font-rm FAMILY=X Remove a fetched family"
 	@echo "Other:"
 	@echo "  clean         Remove $(OUT_DIR)/"
 	@echo "  install       brew install gh typst typstyle diff-pdf poppler"

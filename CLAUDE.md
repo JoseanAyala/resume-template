@@ -25,10 +25,6 @@ make test-content       # strict word-multiset equality — the gating check
 make test-visual        # pixel diff; writes output/diff.pdf on mismatch (informational)
 make ref                # fetch reference PDF from the latest release
 make test REF_TAG=v2026.05.17-abc1234   # pin a specific release tag
-
-# Fonts (Google Fonts via fontsource CDN → fonts/)
-make font FAMILY="Manrope"        # fetch all weights/styles
-make font-rm FAMILY="Manrope"     # remove a fetched family
 ```
 
 One-time setup: `make install` (`brew install gh typst typstyle diff-pdf poppler` plus the Font Awesome cask).
@@ -52,7 +48,7 @@ The dependency direction is strictly `resume.typ → lib.typ → lib/*.typ`, wit
 
 Typst is invoked with `--font-path fonts/`. The `fonts/` directory is gitignored and empty in a fresh clone; supply fonts via:
 - `make install` (Homebrew cask for Font Awesome system-wide), or
-- `make font FAMILY="..."` to drop TTFs into `fonts/`, or
+- drop TTF/OTF files directly into `fonts/`, or
 - in CI, the release workflow downloads Font Awesome OTFs into `fonts/` (cached by `FA_VERSION`).
 
 If a build renders icons as `?` boxes, the Font Awesome family in `lib/icons.typ` is not on the font path — fix the install rather than changing the glyph.
