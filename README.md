@@ -17,6 +17,10 @@
   <a href="https://github.com/JoseanAyala/resume-template/releases/latest"><strong>Download the latest resume</strong></a>
 </p>
 
+<p align="center">
+  <a href="https://github.com/JoseanAyala/resume-template/releases/latest"><img alt="Resume preview" src="docs/preview.png" width="640" /></a>
+</p>
+
 ## Why
 
 - **One file to edit.** Content lives in `resume.typ`. Everything else is the template.
