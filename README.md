@@ -26,16 +26,14 @@
 - **One file to edit.** Content lives in `resume.typ`. Everything else is the template.
 - **Single-page, opinionated.** The sb2nov layout — clean headings, tight spacing, icon-prefixed contact line.
 - **Push to publish.** Every commit to `main` cuts a tagged GitHub Release with the PDF attached.
-- **Regression-checked.** `make test` diffs your build against the last release by word-multiset and pixels.
 - **Modern toolchain.** Typst compiles in milliseconds; no LaTeX, no Docker, no `\usepackage` archaeology.
 
 ## Quick start
 
 ```sh
-make install   # one-time: brew install gh typst typstyle diff-pdf poppler
+make install   # one-time: brew install typst typstyle + Font Awesome cask
 make           # build output/resume.pdf
 make watch     # live-rebuild on save
-make test      # diff against the latest GitHub Release (override with REF_TAG=v...)
 ```
 
 ## Layout

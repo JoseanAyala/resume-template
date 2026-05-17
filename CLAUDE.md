@@ -18,18 +18,9 @@ make fmt        # format .typ files in place via typstyle
 make fmt-check  # verify formatting without rewriting
 make open       # open the built PDF
 make clean      # rm -rf output/
-
-# Diff against a published GitHub Release (defaults to latest)
-make test               # test-content + test-visual
-make test-content       # strict word-multiset equality — the gating check
-make test-visual        # pixel diff; writes output/diff.pdf on mismatch (informational)
-make ref                # fetch reference PDF from the latest release
-make test REF_TAG=v2026.05.17-abc1234   # pin a specific release tag
 ```
 
-One-time setup: `make install` (`brew install gh typst typstyle diff-pdf poppler` plus the Font Awesome cask).
-
-There is no test framework and no unit tests — "tests" are PDF-diff checks against the last published release.
+One-time setup: `make install` (`brew install typst typstyle` plus the Font Awesome cask).
 
 ## Architecture
 
@@ -59,7 +50,5 @@ If a build renders icons as `?` boxes, the Font Awesome family in `lib/icons.typ
 
 1. Set up Typst, restore/install Font Awesome into `fonts/`
 2. `make build`
-3. Tag `v$(date -u +%Y.%m.%d)-$(git rev-parse --short HEAD)`
-4. Publish a GitHub Release with `output/resume.pdf` attached
-
-`make test` diffs the current build against whatever release tag is fetched, so locally-passing `test-content` means the PDF still has the same words as the last release.
+3. Tag `v$(date -u +%Y.%m.%d)-$(git rev-parse --short HEAD)` and stamp it into the filename
+4. Publish a GitHub Release with `resume-<tag>.pdf` attached
