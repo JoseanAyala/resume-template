@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+env:
+  FA_VERSION: "7.2.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: typst-community/setup-typst@v3
+
+      - name: Cache Font Awesome
+        id: fa-cache
+        uses: actions/cache@v4
+        with:
+          path: fonts
+          key: fontawesome-${{ env.FA_VERSION }}
+
+      - name: Install Font Awesome
+        if: steps.fa-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -sSfL -o /tmp/fa.zip "https://github.com/FortAwesome/Font-Awesome/releases/download/${FA_VERSION}/fontawesome-free-${FA_VERSION}-desktop.zip"
+          mkdir -p fonts
+          unzip -j /tmp/fa.zip "fontawesome-free-${FA_VERSION}-desktop/otfs/*.otf" -d fonts/
+
+      - name: Build resume
+        run: make build
+
+      - name: Compute tag
+        id: tag
+        run: echo "name=v$(date -u +%Y.%m.%d)-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Stamp asset filename
+        run: cp output/resume.pdf "output/resume-${{ steps.tag.outputs.name }}.pdf"
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.tag.outputs.name }}
+          files: output/resume-${{ steps.tag.outputs.name }}.pdf
+          fail_on_unmatched_files: true
