@@ -38,7 +38,7 @@ make watch     # live-rebuild on save
 
 ## Coaching workflow
 
-This repo ships a [Claude Code](https://claude.com/claude-code) slash command at [`.claude/commands/resume.md`](.claude/commands/resume.md). Run `/resume` inside the repo to get a senior resume coach that edits `resume.typ` in place:
+This repo ships a [Claude Code](https://claude.com/claude-code) slash command at [`.claude/commands/resume-review.md`](.claude/commands/resume-review.md). Run `/resume-review` inside the repo to get a senior resume coach that edits `resume.typ` in place:
 
 - Gathers context first — target role, company type, special constraints — before suggesting anything.
 - Audits section by section (header → experience → skills → education) and proposes rewrites with reasoning.
