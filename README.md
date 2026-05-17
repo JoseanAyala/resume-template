@@ -1,4 +1,4 @@
-<h1 align="center">resume</h1>
+<h1 align="center"><i>resumé</i></h1>
 
 <p align="center">
   A <a href="https://typst.app">Typst</a> port of <a href="https://github.com/sb2nov/resume">sb2nov/resume</a> — opinionated single-page layout.
@@ -7,15 +7,23 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/JoseanAyala/resume/actions/workflows/release.yml"><img alt="Release" src="https://github.com/JoseanAyala/resume/actions/workflows/release.yml/badge.svg" /></a>
-  <a href="https://github.com/JoseanAyala/resume/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/JoseanAyala/resume?label=resume" /></a>
+  <a href="https://github.com/JoseanAyala/resume-template/actions/workflows/release.yml"><img alt="Release" src="https://github.com/JoseanAyala/resume-template/actions/workflows/release.yml/badge.svg" /></a>
+  <a href="https://github.com/JoseanAyala/resume-template/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/JoseanAyala/resume-template?label=resume" /></a>
   <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-blue.svg" /></a>
   <img alt="Made with Typst" src="https://img.shields.io/badge/made%20with-Typst-239DAD.svg" />
 </p>
 
 <p align="center">
-  <a href="https://github.com/JoseanAyala/resume/releases/latest"><strong>Download the latest resume</strong></a>
+  <a href="https://github.com/JoseanAyala/resume-template/releases/latest"><strong>Download the latest resume</strong></a>
 </p>
+
+## Why
+
+- **One file to edit.** Content lives in `resume.typ`. Everything else is the template.
+- **Single-page, opinionated.** The sb2nov layout — clean headings, tight spacing, icon-prefixed contact line.
+- **Push to publish.** Every commit to `main` cuts a tagged GitHub Release with the PDF attached.
+- **Regression-checked.** `make test` diffs your build against the last release by word-multiset and pixels.
+- **Modern toolchain.** Typst compiles in milliseconds; no LaTeX, no Docker, no `\usepackage` archaeology.
 
 ## Quick start
 
@@ -42,19 +50,16 @@ fonts/               # font path passed to typst via --font-path (empty in repo;
 
 Every push to `main` triggers [`.github/workflows/release.yml`](.github/workflows/release.yml):
 
-1. Build the PDF with Typst
-2. Tag `v<UTC-date>-<sha>`
-3. Publish a GitHub Release with `resume.pdf` attached
+1. Restore Font Awesome from cache (download + unzip on first run)
+2. Build the PDF with `make build`
+3. Compute tag `v<UTC-date>-<sha>` and stamp it into the filename
+4. Publish a GitHub Release with `resume-<tag>.pdf` attached
 
-The latest build is always at `releases/latest/download/resume.pdf`.
+Grab the latest from the [releases page](https://github.com/JoseanAyala/resume-template/releases/latest).
 
 ## Editing in Neovim
 
 LSP via [tinymist](https://github.com/Myriad-Dreamin/tinymist), formatting via [typstyle](https://github.com/Enter-tainer/typstyle), browser preview via [typst-preview.nvim](https://github.com/chomosuke/typst-preview.nvim). Open a `.typ` file, then `<leader>tp` to launch the preview.
-
-## Credits
-
-The visual design comes from [sb2nov/resume](https://github.com/sb2nov/resume) (MIT) — this repo is a Typst rewrite of that LaTeX template. Icons are [Font Awesome Free](https://fontawesome.com/) (CC BY 4.0 / SIL OFL 1.1).
 
 ## License
 
